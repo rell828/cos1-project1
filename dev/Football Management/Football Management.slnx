@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Football Management.vcxproj" />
+  <Project Path="Football Management.vcxproj" Id="2a657311-66f8-46e2-ac81-a32fed313510" />
 </Solution>
