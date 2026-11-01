@@ -1,22 +1,35 @@
 // Football Management.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+
 #include <iostream>
-#include <limits>
-using namespace std;
-#include <string>
 #include "Player.h"
+#include "Team.h"
+
 int main()
 {
-    {
-        Player player1("Jalen Hurts", "QB", 1, 99);
-        Player player2("Devonte Smith", "WR", 6, 98);
+    // Create football team
+    Team myTeam("Houston Texans");
 
-        player1.displayPlayer();
-        player2.displayPlayer();
+    // Create players
+    Player player1("C.J. Stroud", "QB", 7, 90);
+    Player player2("Will Anderson Jr.", "DE", 51, 95);
+    Player player3("Nico Collins", "WR", 12, 92);
 
-        return 0;
-    }
+    // Add players to team
+    myTeam.addPlayer(player1);
+    myTeam.addPlayer(player2);
+    myTeam.addPlayer(player3);
+
+    // Display roster
+    myTeam.displayRoster();
+
+    // Display roster size
+    std::cout << "\nTotal Players: "
+        << myTeam.getRosterSize()
+        << "\n";
+
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
