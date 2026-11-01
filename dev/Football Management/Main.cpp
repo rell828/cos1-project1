@@ -3,31 +3,127 @@
 
 
 #include <iostream>
+#include <string>
+#include <limits>
 #include "Player.h"
 #include "Team.h"
 
+using namespace std;
+
+// Function to get a valid number
+int getValidNumber(int min, int max)
+{
+    int number;
+
+    while (true)
+    {
+        if (cin >> number && number >= min && number <= max)
+        {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return number;
+        }
+
+        cout << "Invalid input. Enter a number from "
+            << min << " to " << max << ": ";
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+}
+
 int main()
 {
-    // Create football team
     Team myTeam("Houston Texans");
 
-    // Create players
-    Player player1("C.J. Stroud", "QB", 7, 90);
-    Player player2("Will Anderson Jr.", "DE", 51, 95);
-    Player player3("Nico Collins", "WR", 12, 92);
+    // Starting roster
+    myTeam.addPlayer(Player("C.J. Stroud", "QB", 7, 90));
+    myTeam.addPlayer(Player("Nico Collins", "WR", 12, 92));
+    myTeam.addPlayer(Player("Will Anderson Jr.", "DE", 51, 95));
 
-    // Add players to team
-    myTeam.addPlayer(player1);
-    myTeam.addPlayer(player2);
-    myTeam.addPlayer(player3);
+    int choice;
 
-    // Display roster
-    myTeam.displayRoster();
+    do
+    {
+        cout << "\n================================\n";
+        cout << "    FOOTBALL TEAM MANAGER\n";
+        cout << "================================\n";
+        cout << "1. View Team Roster\n";
+        cout << "2. Add Player\n";
+        cout << "3. Remove Player\n";
+        cout << "0. Exit\n";
+        cout << "================================\n";
+        cout << "Enter your choice: ";
 
-    // Display roster size
-    std::cout << "\nTotal Players: "
-        << myTeam.getRosterSize()
-        << "\n";
+        choice = getValidNumber(0, 3);
+
+        switch (choice)
+        {
+        case 1:
+        {
+            myTeam.displayRoster();
+            break;
+        }
+
+        case 2:
+        {
+            string name;
+            string position;
+
+            cout << "\nEnter player name: ";
+            getline(cin, name);
+
+            while (name.empty())
+            {
+                cout << "Name cannot be empty: ";
+                getline(cin, name);
+            }
+
+            cout << "Enter position (QB, RB, WR, etc.): ";
+            getline(cin, position);
+
+            while (position.empty())
+            {
+                cout << "Position cannot be empty: ";
+                getline(cin, position);
+            }
+
+            cout << "Enter jersey number (0-99): ";
+            int jersey = getValidNumber(0, 99);
+
+            cout << "Enter overall rating (1-99): ";
+            int rating = getValidNumber(1, 99);
+
+            Player newPlayer(name, position, jersey, rating);
+            myTeam.addPlayer(newPlayer);
+
+            break;
+        }
+
+        case 3:
+        {
+            cout << "\nEnter jersey number to remove (0-99): ";
+            int jersey = getValidNumber(0, 99);
+
+            if (myTeam.removePlayer(jersey))
+            {
+                cout << "Player removed successfully!\n";
+            }
+            else
+            {
+                cout << "Player not found.\n";
+            }
+
+            break;
+        }
+
+        case 0:
+        {
+            cout << "\nThanks for playing Football Team Manager!\n";
+            break;
+        }
+        }
+
+    } while (choice != 0);
 
     return 0;
 }
