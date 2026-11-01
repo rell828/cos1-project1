@@ -7,6 +7,7 @@
 #include <limits>
 #include "Player.h"
 #include "Team.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -34,6 +35,7 @@ int getValidNumber(int min, int max)
 int main()
 {
     Team myTeam("Houston Texans");
+    Game footballGame;
 
     // Starting roster
     myTeam.addPlayer(Player("C.J. Stroud", "QB", 7, 90));
@@ -50,11 +52,10 @@ int main()
         cout << "1. View Team Roster\n";
         cout << "2. Add Player\n";
         cout << "3. Remove Player\n";
+        cout << "4. Simulate Game\n";
         cout << "0. Exit\n";
-        cout << "================================\n";
-        cout << "Enter your choice: ";
 
-        choice = getValidNumber(0, 3);
+        choice = getValidNumber(0, 4);
 
         switch (choice)
         {
@@ -115,12 +116,33 @@ int main()
 
             break;
         }
+        case 4:
+        {
+            string opponent;
+
+            cout << "\nEnter opponent team name: ";
+            getline(cin, opponent);
+
+            while (opponent.find_first_not_of(" \t") ==
+                string::npos)
+            {
+                cout << "Opponent name cannot be empty: ";
+                getline(cin, opponent);
+            }
+
+            footballGame.simulateGame(myTeam, opponent);
+            footballGame.displayResult();
+
+            break;
+        }
 
         case 0:
         {
             cout << "\nThanks for playing Football Team Manager!\n";
             break;
         }
+
+
         }
 
     } while (choice != 0);
