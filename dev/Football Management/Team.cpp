@@ -60,3 +60,23 @@ int Team::getRosterSize() const
 {
     return static_cast<int>(roster.size());
 }
+
+
+double Team::getAverageRating() const
+{
+    if (roster.empty())
+    {
+        return 0.0;
+    }
+
+    double totalRating = 0;
+
+    for (const Player& player : roster)
+    {
+        totalRating += player.getOverallRating();
+    }
+
+    return totalRating / roster.size();
+
+
+}

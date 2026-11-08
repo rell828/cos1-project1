@@ -24,4 +24,13 @@ public:
 
     // Get number of players
     int getRosterSize() const;
+    
+    //Team rating calculation
+
+    double getAverageRating() const;
+
+    // Getter for Ratings
+    int getRating() const;
+
+  
 };
