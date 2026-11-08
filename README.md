@@ -30,7 +30,19 @@ Replace this paragraph with your stand up for this week. Use the prompts above t
 
 ### Week 2
 
-My next stand up will go here...
+This week, I improved my Football Management Simulator by making player ratings affect game results, adding a View Team Rating feature, and improving input validation and menu navigation.
+
+🌵 Challenges — Problems I had and how I'm addressing them
+
+One challenge was making game simulations more realistic and handling invalid user input. I addressed these issues by updating my game logic, adding error handling, and testing different scenarios.
+
+🏆 Accomplishments — Something I leveled up on this week
+
+I improved my C++ object-oriented programming and debugging skills. I also completed my GitHub Issues, updated my Project board, and successfully merged my pull request into the main branch.
+
+🔮 Next Steps — What I plan to prioritize next
+
+Next, I plan to continue improving the simulator by adding more football management features, making game results more realistic, and preparing for the next milestone.
 
 ### Week 3
 
