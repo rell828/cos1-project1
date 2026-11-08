@@ -19,8 +19,10 @@ private:
     void AddPlayer();
     void RemovePlayer();
     void SimulateGame();
-
+    void ViewTeamRating();
 public:
     FootballManager();
     void Run();
+
+  
 };

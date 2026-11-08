@@ -54,6 +54,22 @@ void FootballManager::ViewRoster()
 {
     myTeam.displayRoster();
 }
+void FootballManager::ViewTeamRating()
+{
+    cout << "\n===== TEAM RATING =====\n";
+    cout << "Team: Houston Texans\n";
+    cout << "Players: " << myTeam.getRosterSize() << "\n";
+
+    if (myTeam.getRosterSize() == 0)
+    {
+        cout << "No players on the roster.\n";
+        cout << "Add players to calculate a team rating.\n";
+        return;
+    }
+
+    cout << "Overall Rating: "
+        << myTeam.getAverageRating() << "\n";
+}
 
 // Add a new player
 void FootballManager::AddPlayer()
