@@ -64,7 +64,7 @@ void FootballManager::AddPlayer()
     cout << "\nEnter player name: ";
     getline(cin, name);
 
-    while (name.empty())
+    while (name.find_first_not_of(" \t") == string::npos)
     {
         cout << "Name cannot be empty: ";
         getline(cin, name);
@@ -73,7 +73,7 @@ void FootballManager::AddPlayer()
     cout << "Enter position (QB, RB, WR, etc.): ";
     getline(cin, position);
 
-    while (position.empty())
+    while (position.find_first_not_of(" \t") == string::npos)
     {
         cout << "Position cannot be empty: ";
         getline(cin, position);
