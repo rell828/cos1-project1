@@ -108,6 +108,15 @@ void FootballManager::RemovePlayer()
 // Simulate a football game
 void FootballManager::SimulateGame()
 {
+    // Prevent games when the roster is empty
+    if (myTeam.getRosterSize() == 0)
+    {
+        cout << "\nCannot simulate a game!\n";
+        cout << "Your team has no players.\n";
+        cout << "Please add players before simulating.\n";
+        return;
+    }
+
     string opponent;
 
     cout << "\nEnter opponent team name: ";
