@@ -45,6 +45,7 @@ void FootballManager::DisplayMenu()
     cout << "2. Add Player\n";
     cout << "3. Remove Player\n";
     cout << "4. Simulate Game\n";
+    cout << "5. View Team Rating\n";
     cout << "0. Exit\n";
     cout << "Enter your choice: ";
 }
@@ -156,7 +157,7 @@ void FootballManager::Run()
     do
     {
         DisplayMenu();
-        choice = getValidNumber(0, 4);
+        choice = getValidNumber(0, 5);
 
         switch (choice)
         {
@@ -174,6 +175,10 @@ void FootballManager::Run()
 
         case 4:
             SimulateGame();
+            break;
+        
+        case 5:
+            ViewTeamRating();
             break;
 
         case 0:
