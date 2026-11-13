@@ -1,9 +1,8 @@
 #include "FootballManager.h"
 #include <iostream>
 #include <string>
-#include <limits>
+#include <stdexcept>
 
-using namespace std;
 
 // Constructor: Set up the Houston Texans
 FootballManager::FootballManager()
@@ -17,37 +16,57 @@ FootballManager::FootballManager()
 // Validate numeric input
 int FootballManager::getValidNumber(int min, int max)
 {
-    int number;
+    std::string input;
 
     while (true)
     {
-        if (cin >> number && number >= min && number <= max)
+        std::getline(std::cin, input);
+
+        try
         {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return number;
+            size_t position = 0;
+            int number = std::stoi(input, &position);
+
+            // Reject extra characters after the number
+            if (input.find_first_not_of(" \t\r\n", position)
+                != std::string::npos)
+            {
+                throw std::invalid_argument("Invalid characters");
+            }
+
+            if (number >= min && number <= max)
+            {
+                return number;
+            }
+
+            std::cout << "Enter a number from "
+                << min << " to " << max << ": ";
         }
-
-        cout << "Invalid input. Enter a number from "
-            << min << " to " << max << ": ";
-
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        catch (const std::invalid_argument&)
+        {
+            std::cout << "Invalid input. Please enter a whole number: ";
+        }
+        catch (const std::out_of_range&)
+        {
+            std::cout << "Number is too large. Try again: ";
+        }
     }
 }
 
 // Display main menu
 void FootballManager::DisplayMenu()
 {
-    cout << "\n================================\n";
-    cout << "    FOOTBALL TEAM MANAGER\n";
-    cout << "================================\n";
-    cout << "1. View Team Roster\n";
-    cout << "2. Add Player\n";
-    cout << "3. Remove Player\n";
-    cout << "4. Simulate Game\n";
-    cout << "5. View Team Rating\n";
-    cout << "0. Exit\n";
-    cout << "Enter your choice: ";
+    std::cout << "\n================================\n";
+    std::cout << "    FOOTBALL TEAM MANAGER\n";
+    std::cout << "================================\n";
+    std::cout << "1. View Team Roster\n";
+    std::cout << "2. Add Player\n";
+    std::cout << "3. Remove Player\n";
+    std::cout << "4. Simulate Game\n";
+    std::cout << "5. View Team Rating\n";
+    std::cout << "6. View Player Details\n";
+    std::cout << "0. Exit\n";
+    std::cout << "Enter your choice: ";
 }
 
 // View roster
@@ -57,49 +76,49 @@ void FootballManager::ViewRoster()
 }
 void FootballManager::ViewTeamRating()
 {
-    cout << "\n===== TEAM RATING =====\n";
-    cout << "Team: Houston Texans\n";
-    cout << "Players: " << myTeam.getRosterSize() << "\n";
+    std::cout << "\n===== TEAM RATING =====\n";
+    std::cout << "Team: Houston Texans\n";
+    std::cout << "Players: " << myTeam.getRosterSize() << "\n";
 
     if (myTeam.getRosterSize() == 0)
     {
-        cout << "No players on the roster.\n";
-        cout << "Add players to calculate a team rating.\n";
+        std::cout << "No players on the roster.\n";
+        std::cout << "Add players to calculate a team rating.\n";
         return;
     }
 
-    cout << "Overall Rating: "
+    std::cout << "Overall Rating: "
         << myTeam.getAverageRating() << "\n";
 }
 
 // Add a new player
 void FootballManager::AddPlayer()
 {
-    string name;
-    string position;
+    std::string name;
+    std::string position;
 
-    cout << "\nEnter player name: ";
-    getline(cin, name);
+    std::cout << "\nEnter player name: ";
+    std::getline(std::cin, name);
 
-    while (name.find_first_not_of(" \t") == string::npos)
+    while (name.find_first_not_of(" \t") == std::string::npos)
     {
-        cout << "Name cannot be empty: ";
-        getline(cin, name);
+        std::cout << "Name cannot be empty: ";
+        std::getline(std::cin, name);
     }
 
-    cout << "Enter position (QB, RB, WR, etc.): ";
-    getline(cin, position);
+    std::cout << "Enter position (QB, RB, WR, etc.): ";
+    std::getline(std::cin, position);
 
-    while (position.find_first_not_of(" \t") == string::npos)
+    while (position.find_first_not_of(" \t") == std::string::npos)
     {
-        cout << "Position cannot be empty: ";
-        getline(cin, position);
+        std::cout << "Position cannot be empty: ";
+        std::getline(std::cin, position);
     }
 
-    cout << "Enter jersey number (0-99): ";
+    std::cout << "Enter jersey number (0-99): ";
     int jersey = getValidNumber(0, 99);
 
-    cout << "Enter overall rating (1-99): ";
+    std::cout << "Enter overall rating (1-99): ";
     int rating = getValidNumber(1, 99);
 
     Player newPlayer(name, position, jersey, rating);
@@ -109,16 +128,16 @@ void FootballManager::AddPlayer()
 // Remove a player
 void FootballManager::RemovePlayer()
 {
-    cout << "\nEnter jersey number to remove (0-99): ";
+    std::cout << "\nEnter jersey number to remove (0-99): ";
     int jersey = getValidNumber(0, 99);
 
     if (myTeam.removePlayer(jersey))
     {
-        cout << "Player removed successfully!\n";
+        std::cout << "Player removed successfully!\n";
     }
     else
     {
-        cout << "Player not found.\n";
+        std::cout << "Player not found.\n";
     }
 }
 
@@ -128,26 +147,47 @@ void FootballManager::SimulateGame()
     // Prevent games when the roster is empty
     if (myTeam.getRosterSize() == 0)
     {
-        cout << "\nCannot simulate a game!\n";
-        cout << "Your team has no players.\n";
-        cout << "Please add players before simulating.\n";
+        std::cout << "\nCannot simulate a game!\n";
+        std::cout << "Your team has no players.\n";
+        std::cout << "Please add players before simulating.\n";
         return;
     }
 
-    string opponent;
+    std::string opponent;
 
-    cout << "\nEnter opponent team name: ";
-    getline(cin, opponent);
+    std::cout << "\nEnter opponent team name: ";
+    std::getline(std::cin, opponent);
 
-    while (opponent.find_first_not_of(" \t") == string::npos)
+    while (opponent.find_first_not_of(" \t") == std::string::npos)
     {
-        cout << "Opponent name cannot be empty: ";
-        getline(cin, opponent);
+        std::cout << "Opponent name cannot be empty: ";
+        std::getline(std::cin, opponent);
     }
 
     footballGame.simulateGame(myTeam, opponent);
     footballGame.displayResult();
 }
+
+
+void FootballManager::ViewPlayerDetails()
+{
+    std::cout << "Enter jersey number: ";
+
+    int jersey = getValidNumber(0, 99);
+
+    Player* player = myTeam.findPlayer(jersey);
+
+    if (player == nullptr)
+    {
+        std::cout << "Player not found.\n";
+        return;
+    }
+
+    std::cout << "Player Name: " << player->getName() << "\n";
+    std::cout << "Position: " << player->getPosition() << "\n";
+    std::cout << "Overall Rating: " << player->getOverallRating() << "\n";
+}
+
 
 // Run the application
 void FootballManager::Run()
@@ -157,7 +197,8 @@ void FootballManager::Run()
     do
     {
         DisplayMenu();
-        choice = getValidNumber(0, 5);
+
+        choice = getValidNumber(0, 6);
 
         switch (choice)
         {
@@ -176,13 +217,17 @@ void FootballManager::Run()
         case 4:
             SimulateGame();
             break;
-        
+
         case 5:
             ViewTeamRating();
             break;
 
+        case 6:
+            ViewPlayerDetails();
+            break;
+
         case 0:
-            cout << "\nThanks for playing Football Team Manager!\n";
+            std::cout << "\nThanks for playing Football Team Manager!\n";
             break;
         }
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <vector>
 #include "Player.h"
@@ -24,13 +25,10 @@ public:
 
     // Get number of players
     int getRosterSize() const;
-    
-    //Team rating calculation
 
+    // Calculate team rating
     double getAverageRating() const;
 
-    // Getter for Ratings
-    int getRating() const;
-
-  
+    // Find player using a pointer
+    Player* findPlayer(int jerseyNumber);
 };

@@ -78,5 +78,19 @@ double Team::getAverageRating() const
 
     return totalRating / roster.size();
 
+   
+}
 
+
+  Player* Team::findPlayer(int jerseyNumber)
+   {
+    for (Player& player : roster)
+    {
+        if (player.getJerseyNumber() == jerseyNumber)
+        {
+            return &player;
+        }
+    }
+
+    return nullptr;
 }
