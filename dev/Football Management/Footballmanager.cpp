@@ -24,14 +24,13 @@ int FootballManager::getValidNumber(int min, int max)
 
         try
         {
-            size_t position = 0;
-            int number = std::stoi(input, &position);
+            int number = std::stoi(input);
 
-            // Reject extra characters after the number
-            if (input.find_first_not_of(" \t\r\n", position)
+            if (input.find_first_not_of("0123456789")
                 != std::string::npos)
             {
-                throw std::invalid_argument("Invalid characters");
+                std::cout << "Invalid input. Enter a whole number: ";
+                continue;
             }
 
             if (number >= min && number <= max)
@@ -39,12 +38,12 @@ int FootballManager::getValidNumber(int min, int max)
                 return number;
             }
 
-            std::cout << "Enter a number from "
-                << min << " to " << max << ": ";
+            std::cout << "Enter a number between "
+                << min << " and " << max << ": ";
         }
         catch (const std::invalid_argument&)
         {
-            std::cout << "Invalid input. Please enter a whole number: ";
+            std::cout << "Invalid input. Please enter a number: ";
         }
         catch (const std::out_of_range&)
         {
