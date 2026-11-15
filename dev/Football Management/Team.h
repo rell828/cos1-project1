@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <string>
@@ -31,4 +32,8 @@ public:
 
     // Find player using a pointer
     Player* findPlayer(int jerseyNumber);
+
+    // Save and load team data
+    bool saveTeamData() const;
+    bool loadTeamData();
 };

@@ -64,6 +64,9 @@ void FootballManager::DisplayMenu()
     std::cout << "4. Simulate Game\n";
     std::cout << "5. View Team Rating\n";
     std::cout << "6. View Player Details\n";
+    std::cout << "7. Save Team Data\n";
+    std::cout << "8. Load Team Data\n";
+    std::cout << "9. View Player Details\n";
     std::cout << "0. Exit\n";
     std::cout << "Enter your choice: ";
 }
@@ -197,7 +200,7 @@ void FootballManager::Run()
     {
         DisplayMenu();
 
-        choice = getValidNumber(0, 6);
+        choice = getValidNumber(0, 9);
 
         switch (choice)
         {
@@ -225,6 +228,17 @@ void FootballManager::Run()
             ViewPlayerDetails();
             break;
 
+        case 7:
+            myTeam.saveTeamData();
+            break;
+
+        case 8:
+            myTeam.loadTeamData();
+            break;
+
+        case 9:
+            ViewPlayerDetails();
+            break;
         case 0:
             std::cout << "\nThanks for playing Football Team Manager!\n";
             break;
