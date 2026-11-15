@@ -18,6 +18,7 @@ private:
     void SimulateGame();
     void ViewTeamRating();
     void ViewPlayerDetails();
+    void UpdatePlayerStats();
 
     // Pointer-based player management
     void DisplayPlayerDetails(Player* player);

@@ -66,7 +66,7 @@ void FootballManager::DisplayMenu()
     std::cout << "6. View Player Details\n";
     std::cout << "7. Save Team Data\n";
     std::cout << "8. Load Team Data\n";
-    std::cout << "9. View Player Details\n";
+    std::cout << "9. Update Player Stats\n";
     std::cout << "0. Exit\n";
     std::cout << "Enter your choice: ";
 }
@@ -190,6 +190,45 @@ void FootballManager::ViewPlayerDetails()
     std::cout << "Overall Rating: " << player->getOverallRating() << "\n";
 }
 
+void FootballManager::UpdatePlayerStats()
+{
+    std::cout << "\n===== UPDATE PLAYER STATS =====\n";
+
+    std::cout << "Enter player's jersey number: ";
+    int jersey = getValidNumber(0, 99);
+
+    // Find the player using a pointer
+    Player* player = myTeam.findPlayer(jersey);
+
+    if (player == nullptr)
+    {
+        std::cout << "Player not found.\n";
+        return;
+    }
+
+    std::cout << "\nUpdating stats for "
+        << player->getName() << "\n";
+
+    std::cout << "Enter passing yards: ";
+    int passing = getValidNumber(0, 1000);
+
+    std::cout << "Enter rushing yards: ";
+    int rushing = getValidNumber(0, 1000);
+
+    std::cout << "Enter receiving yards: ";
+    int receiving = getValidNumber(0, 1000);
+
+    std::cout << "Enter touchdowns: ";
+    int touchdowns = getValidNumber(0, 20);
+
+    // Add new stats to existing season totals
+    player->addStats(passing, rushing, receiving, touchdowns);
+
+    std::cout << "\nPlayer statistics updated successfully!\n";
+
+    player->displayPlayer();
+}
+
 
 // Run the application
 void FootballManager::Run()
@@ -235,10 +274,12 @@ void FootballManager::Run()
         case 8:
             myTeam.loadTeamData();
             break;
-
+        
         case 9:
-            ViewPlayerDetails();
+            UpdatePlayerStats();
             break;
+
+
         case 0:
             std::cout << "\nThanks for playing Football Team Manager!\n";
             break;
