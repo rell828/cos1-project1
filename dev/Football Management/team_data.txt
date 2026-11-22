@@ -1,5 +1,5 @@
 "Houston Texans"
-"C.J. Stroud" "QB" 7 90
-"Nico Collins" "WR" 12 92
-"Will Anderson Jr." "DE" 51 95
-"Avry" "wr" 4 81
+"C.J. Stroud" "QB" 7 90 0 0 0 0
+"Nico Collins" "WR" 12 92 0 0 0 0
+"Will Anderson Jr." "DE" 51 95 0 0 0 0
+"tyrell" "qb" 3 98 200 100 2 2
