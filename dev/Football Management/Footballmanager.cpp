@@ -173,8 +173,9 @@ void FootballManager::SimulateGame()
 
 void FootballManager::ViewPlayerDetails()
 {
-    std::cout << "Enter jersey number: ";
+    std::cout << "\n===== VIEW PLAYER DETAILS =====\n";
 
+    std::cout << "Enter jersey number: ";
     int jersey = getValidNumber(0, 99);
 
     Player* player = myTeam.findPlayer(jersey);
@@ -185,9 +186,7 @@ void FootballManager::ViewPlayerDetails()
         return;
     }
 
-    std::cout << "Player Name: " << player->getName() << "\n";
-    std::cout << "Position: " << player->getPosition() << "\n";
-    std::cout << "Overall Rating: " << player->getOverallRating() << "\n";
+    player->displayPlayer();
 }
 
 void FootballManager::UpdatePlayerStats()
