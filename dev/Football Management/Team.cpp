@@ -116,7 +116,11 @@ double Team::getAverageRating() const
           file << std::quoted(player.getName()) << " "
               << std::quoted(player.getPosition()) << " "
               << player.getJerseyNumber() << " "
-              << player.getOverallRating() << "\n";
+              << player.getOverallRating() << " "
+              << player.getPassingYards() << " "
+              << player.getRushingYards() << " "
+              << player.getReceivingYards() << " "
+              << player.getTouchdowns() << "\n";
       }
 
       std::cout << "Team data saved successfully!\n";
@@ -160,12 +164,20 @@ double Team::getAverageRating() const
           std::string position;
           int jerseyNumber;
           int rating;
+          int passingYards;
+          int rushingYards;
+          int receivingYards;
+          int touchdowns;
           std::string extra;
 
           if (!(record >> std::quoted(name)
               >> std::quoted(position)
               >> jerseyNumber
-              >> rating))
+              >> rating
+              >> passingYards
+              >> rushingYards
+              >> receivingYards
+              >> touchdowns))
           {
               std::cout << "Invalid player data in save file.\n";
               return false;
@@ -178,7 +190,11 @@ double Team::getAverageRating() const
           }
 
           if (jerseyNumber < 0 || jerseyNumber > 99 ||
-              rating < 1 || rating > 99)
+              rating < 1 || rating > 99 ||
+              passingYards < 0 ||
+              rushingYards < 0 ||
+              receivingYards < 0 ||
+              touchdowns < 0)
           {
               std::cout << "Invalid player information in save file.\n";
               return false;
@@ -193,9 +209,16 @@ double Team::getAverageRating() const
               }
           }
 
-          loadedRoster.push_back(
-              Player(name, position, jerseyNumber, rating)
+          Player newPlayer(name, position, jerseyNumber, rating);
+
+          newPlayer.addStats(
+              passingYards,
+              rushingYards,
+              receivingYards,
+              touchdowns
           );
+
+          loadedRoster.push_back(newPlayer);
       }
 
       if (file.bad())
@@ -210,3 +233,4 @@ double Team::getAverageRating() const
       std::cout << "Team data loaded successfully!\n";
       return true;
   }
+
